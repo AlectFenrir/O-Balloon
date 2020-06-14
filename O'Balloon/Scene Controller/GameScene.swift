@@ -37,8 +37,12 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
     var timerLabel: SKLabelNode!
     var scoreLabel: SKLabelNode!
     var balloonCounterLabel: SKLabelNode!
+    var blowHereLabel: SKLabelNode!
+    var popScoreLabel: SKLabelNode!
+    
     var balloon: SKSpriteNode!
     var scoreBar: SKSpriteNode!
+    var downArrow: SKSpriteNode!
     var pop: SKSpriteNode!
     var ohNo: SKSpriteNode!
     
@@ -72,12 +76,19 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         timerLabel = (childNode(withName: "//TimerLabel") as! SKLabelNode)
         scoreLabel = (childNode(withName: "//Score") as! SKLabelNode)
         balloonCounterLabel = (childNode(withName: "//BalloonCounterLabel") as! SKLabelNode)
+        blowHereLabel = (childNode(withName: "//BlowHereLabel") as! SKLabelNode)
+        popScoreLabel = (childNode(withName: "//PopScoreLabel") as! SKLabelNode)
+        
         balloon = (childNode(withName: "//Balloon") as! SKSpriteNode)
         scoreBar = (childNode(withName: "//ScoreBar") as! SKSpriteNode)
+        downArrow = (childNode(withName: "//DownArrow") as! SKSpriteNode)
         
-        
-        pop = SKSpriteNode(imageNamed: "dapet skor")
+        pop = SKSpriteNode(imageNamed: "Pop")
         ohNo = SKSpriteNode(imageNamed: "MELETUS")
+        
+        animateNodes([downArrow])
+        
+        popScoreLabel.isHidden = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,16 +104,25 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
             }
         }
     }
-    
    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
-    
    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        
+        if score < 10 {
+            scoreBar.color = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.text = "Blow Here!"
+        }
+        else if score >= 10 && score < 90 {
+            scoreBar.color = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.text = "Keep Blowing!"
+        }
+        else if score >= 90 && score <= 100 {
+            scoreBar.color = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.text = "Tap The Balloon!"
+        }
     }
     
     
@@ -138,6 +158,10 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
     func setupPopAction() {
         let balloonTexture = SKTexture.init(imageNamed: "Group 4")
         
+        let scoreFormat = String(format: "%.0f", score)
+        popScoreLabel.text = "You Got \(scoreFormat)"
+        popScoreLabel.isHidden = false
+        
         impactFeedbackgenerator.impactOccurred(intensity: score / 100)
         
         isBalloonALive = false
@@ -162,6 +186,8 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
                 self.scoreLabel.text = "0"
                 
                 self.balloon.run(SKAction.setTexture(balloonTexture, resize: true))
+                
+                self.popScoreLabel.isHidden = true
             }
         ]))
     }
@@ -231,6 +257,34 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
                 self.view?.presentScene(gameOverScene!, transition: transition)
             }
         ]))
+    }
+    
+    
+    // MARK: Animate Nodes
+    func animateNodes(_ nodes: [SKNode]) {
+        for (index, node) in nodes.enumerated() {
+            // Offset each node with a slight delay depending on the index
+            let delayAction = SKAction.wait(forDuration: TimeInterval(index) * 0)
+
+            // Scale up and then back down
+            let scaleUpAction = SKAction.scaleY(to: 1.5, duration: 0.5)
+            let scaleDownAction = SKAction.scaleY(to: 1, duration: 0.5)
+
+            // Wait for 2 seconds before repeating the action
+            let waitAction = SKAction.wait(forDuration: 0)
+
+            // Form a sequence with the scale actions, as well as the wait action
+            let scaleActionSequence = SKAction.sequence([scaleUpAction, scaleDownAction, waitAction])
+
+            // Form a repeat action with the sequence
+            let repeatAction = SKAction.repeatForever(scaleActionSequence)
+
+            // Combine the delay and the repeat actions into another sequence
+            let actionSequence = SKAction.sequence([delayAction, repeatAction])
+
+            // Run the action
+            node.run(actionSequence)
+        }
     }
     
     
@@ -331,7 +385,7 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
                 }
             }
             
-            if balloon.xScale < 2.5 && balloon.yScale < 2.5 {
+            if balloon.xScale <= 2.5 && balloon.yScale <= 2.5 {
                 score = (balloon.xScale - 0.5) * 50
                 let scoreFormat = String(format: "%.0f", score)
                 /* let dinoyScaleFormat = String(format: "%.2f", dino.yScale)
@@ -344,7 +398,7 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
                 dino.run(runningAction, withKey: "runningAnimation")
                 dinoDirection = 1 */
             }
-            else if balloon.xScale >= 2.5 && balloon.yScale >= 2.5 {
+            else if balloon.xScale > 2.5 && balloon.yScale > 2.5 {
                 setupDeadAction()
                 print("Balloon Modar")
             }

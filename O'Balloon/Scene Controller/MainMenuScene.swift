@@ -34,7 +34,7 @@ class MainMenuScene: SKScene {
     func animateNodes(_ nodes: [SKNode]) {
         for (index, node) in nodes.enumerated() {
             // Offset each node with a slight delay depending on the index
-            let delayAction = SKAction.wait(forDuration: TimeInterval(index) * 1)
+            let delayAction = SKAction.wait(forDuration: TimeInterval(index) * 0)
 
             // Fade out and fade in
             let fadeOut = SKAction.fadeOut(withDuration: 1)

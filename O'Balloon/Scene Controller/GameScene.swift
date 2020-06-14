@@ -86,7 +86,7 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         pop = SKSpriteNode(imageNamed: "Pop")
         ohNo = SKSpriteNode(imageNamed: "MELETUS")
         
-        animateNodes([downArrow])
+        animateNodes([blowHereLabel, downArrow])
         
         popScoreLabel.isHidden = true
     }
@@ -266,15 +266,21 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
             // Offset each node with a slight delay depending on the index
             let delayAction = SKAction.wait(forDuration: TimeInterval(index) * 0)
 
+            /*
             // Scale up and then back down
             let scaleUpAction = SKAction.scaleY(to: 1.5, duration: 0.5)
             let scaleDownAction = SKAction.scaleY(to: 1, duration: 0.5)
+            */
+            
+            // Move down and then back up
+            let moveDownAction = SKAction.moveBy(x: 0, y: -30, duration: 0.5)
+            let moveUpAction = SKAction.moveBy(x: 0, y: 30, duration: 0.5)
 
             // Wait for 2 seconds before repeating the action
             let waitAction = SKAction.wait(forDuration: 0)
 
             // Form a sequence with the scale actions, as well as the wait action
-            let scaleActionSequence = SKAction.sequence([scaleUpAction, scaleDownAction, waitAction])
+            let scaleActionSequence = SKAction.sequence([moveDownAction, moveUpAction, waitAction])
 
             // Form a repeat action with the sequence
             let repeatAction = SKAction.repeatForever(scaleActionSequence)

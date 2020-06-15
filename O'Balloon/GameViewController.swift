@@ -10,15 +10,8 @@ import UIKit
 import SpriteKit
 import GameplayKit
 import GameKit
-import Speech
 
 class GameViewController: UIViewController {
-    
-    let audioEngine = AVAudioEngine()
-    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
-    let request = SFSpeechAudioBufferRecognitionRequest()
-    var recognitionTask: SFSpeechRecognitionTask?
-    var isRecording = false
     
     var gcEnabled = Bool() // Check if the user has Game Center enabled
     var gcDefaultLeaderBoard = String() // Check the default leaderboardID

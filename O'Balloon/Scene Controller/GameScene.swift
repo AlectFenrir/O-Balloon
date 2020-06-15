@@ -10,10 +10,9 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 import CoreAudio
-import Speech
 import CoreHaptics
 
-class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
+class GameScene: SKScene, HapticFeedback {
     
     // MARK: Properties
     // Haptic Engine & Player State:

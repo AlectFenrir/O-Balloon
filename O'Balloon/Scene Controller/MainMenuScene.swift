@@ -11,13 +11,18 @@ import GameplayKit
 
 class MainMenuScene: SKScene {
     
+    var threeBalloon: SKSpriteNode!
+    var balloonAction: SKAction!
     var tapAnywhereLabel: SKLabelNode!
     
     override func didMove(to view: SKView) {
-        // Create & configure the engine before doing anything else, since the user may touch a pad immediately.
+        setupBalloonAction()
+        
+        threeBalloon = (childNode(withName: "//ThreeBalloon") as! SKSpriteNode)
         tapAnywhereLabel = (childNode(withName: "//TapAnywhereLabel") as! SKLabelNode)
         
         animateNodes([tapAnywhereLabel])
+        threeBalloon.run(balloonAction, withKey: "balloonAnimation")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,6 +34,14 @@ class MainMenuScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
+    }
+    
+    func setupBalloonAction() {
+        var textures = [SKTexture]()
+        for i in 1...150 {
+            textures.append(SKTexture(imageNamed: "Comp \(i)"))
+        }
+        balloonAction = SKAction.repeatForever(SKAction.animate(with: textures, timePerFrame: 1/30))
     }
     
     func animateNodes(_ nodes: [SKNode]) {

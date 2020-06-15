@@ -86,9 +86,10 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         pop = SKSpriteNode(imageNamed: "Pop")
         ohNo = SKSpriteNode(imageNamed: "MELETUS")
         
-        animateNodes([blowHereLabel, downArrow])
-        
+        blowHereLabel.fontColor = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
         popScoreLabel.isHidden = true
+        
+        animateNodes([blowHereLabel, downArrow])
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -112,15 +113,23 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if score < 10 {
-            scoreBar.color = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
+            scoreBar.color = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.fontColor = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
             blowHereLabel.text = "Blow Here!"
         }
-        else if score >= 10 && score < 90 {
-            scoreBar.color = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
+        else if score >= 10 && score < 80 {
+            scoreBar.color = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.fontColor = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
             blowHereLabel.text = "Keep Blowing!"
         }
+        else if score >= 80 && score < 90 {
+            scoreBar.color = #colorLiteral(red: 0.9012358785, green: 0.519762814, blue: 0.01857760362, alpha: 1)
+            blowHereLabel.fontColor = #colorLiteral(red: 0.9012358785, green: 0.519762814, blue: 0.01857760362, alpha: 1)
+            blowHereLabel.text = "Almost There!"
+        }
         else if score >= 90 && score <= 100 {
-            scoreBar.color = #colorLiteral(red: 0.737254902, green: 0.2509803922, blue: 0.2509803922, alpha: 1)
+            scoreBar.color = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
+            blowHereLabel.fontColor = #colorLiteral(red: 0.3607843137, green: 0.7843137255, blue: 0.2509803922, alpha: 1)
             blowHereLabel.text = "Tap The Balloon!"
         }
     }

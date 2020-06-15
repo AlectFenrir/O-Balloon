@@ -8,14 +8,27 @@
 
 import SpriteKit
 import GameplayKit
+import GameKit
 
 class MainMenuScene: SKScene {
     
+    var leaderboardButton: SKSpriteNode!
     var threeBalloon: SKSpriteNode!
     var balloonAction: SKAction!
     var tapAnywhereLabel: SKLabelNode!
     
+    var gcEnabled = Bool() // Check if the user has Game Center enabled
+    var gcDefaultLeaderBoard = String() // Check the default leaderboardID
+    let LEADERBOARD_ID = "com.rayhanfaluda.O_Balloon"
+    
     override func didMove(to view: SKView) {
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_BGM.aac")
+        soundNode.autoplayLooped = true
+        addChild(soundNode)
+        
+        let volumeAction = SKAction.changeVolume(to: 1, duration: 0)
+        soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
+        
         setupBalloonAction()
         
         threeBalloon = (childNode(withName: "//ThreeBalloon") as! SKSpriteNode)
@@ -26,9 +39,22 @@ class MainMenuScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let gameScene = GameScene(fileNamed: "GameScene")
-        gameScene?.scaleMode = scaleMode
-        view?.presentScene(gameScene)
+        guard let touch = touches.first else { return }
+        
+        leaderboardButton = (childNode(withName: "//LeaderboardButton") as! SKSpriteNode)
+        
+        if leaderboardButton!.frame.contains(touch.location(in: self)) {
+            let vc = self.view!.window!.rootViewController! //POINT 2
+            let gc = GKGameCenterViewController()
+            gc.gameCenterDelegate = self
+            gc.viewState = .leaderboards
+            vc.present(gc, animated: true, completion: nil)
+        }
+        else {
+            let gameScene = GameScene(fileNamed: "GameScene")
+            gameScene?.scaleMode = scaleMode
+            view?.presentScene(gameScene)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -68,5 +94,13 @@ class MainMenuScene: SKScene {
             // Run the action
             node.run(actionSequence)
         }
+    }
+}
+
+
+extension MainMenuScene: GKGameCenterControllerDelegate {
+    // Delegate to dismiss the GC controller
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
 }

@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		2C15BC172495EA8E0065843C /* O'BalloonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C15BC162495EA8E0065843C /* O'BalloonProtocol.swift */; };
 		2C15BC1B24966A7D0065843C /* PhosphateCustom.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC1A24966A7D0065843C /* PhosphateCustom.ttc */; };
+		2C15BC272497603B0065843C /* O'balloon_BGM.aac in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC222497603B0065843C /* O'balloon_BGM.aac */; };
+		2C15BC2D24976E880065843C /* O'balloon_blow.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC2C24976E880065843C /* O'balloon_blow.m4a */; };
+		2C15BC3124976F7C0065843C /* O'balloon_pop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC3024976F7C0065843C /* O'balloon_pop.m4a */; };
+		2C15BC3324976FCC0065843C /* O'balloon_success.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC3224976FCC0065843C /* O'balloon_success.m4a */; };
+		2C15BC35249771390065843C /* AudioPlayerImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C15BC34249771390065843C /* AudioPlayerImplementation.swift */; };
+		2C15BC39249781550065843C /* O'balloon_Gameover.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2C15BC38249781550065843C /* O'balloon_Gameover.m4a */; };
+		2C15BC3C24978EEB0065843C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C15BC3B24978EEB0065843C /* GameKit.framework */; };
 		2CFB863F24947A97003B3EE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFB863E24947A97003B3EE7 /* AppDelegate.swift */; };
 		2CFB864124947A97003B3EE7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB864024947A97003B3EE7 /* GameScene.sks */; };
 		2CFB864324947A97003B3EE7 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB864224947A97003B3EE7 /* Actions.sks */; };
@@ -26,6 +33,13 @@
 /* Begin PBXFileReference section */
 		2C15BC162495EA8E0065843C /* O'BalloonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "O'BalloonProtocol.swift"; sourceTree = "<group>"; };
 		2C15BC1A24966A7D0065843C /* PhosphateCustom.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = PhosphateCustom.ttc; sourceTree = "<group>"; };
+		2C15BC222497603B0065843C /* O'balloon_BGM.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = "O'balloon_BGM.aac"; sourceTree = "<group>"; };
+		2C15BC2C24976E880065843C /* O'balloon_blow.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "O'balloon_blow.m4a"; sourceTree = "<group>"; };
+		2C15BC3024976F7C0065843C /* O'balloon_pop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "O'balloon_pop.m4a"; sourceTree = "<group>"; };
+		2C15BC3224976FCC0065843C /* O'balloon_success.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "O'balloon_success.m4a"; sourceTree = "<group>"; };
+		2C15BC34249771390065843C /* AudioPlayerImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerImplementation.swift; sourceTree = "<group>"; };
+		2C15BC38249781550065843C /* O'balloon_Gameover.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "O'balloon_Gameover.m4a"; sourceTree = "<group>"; };
+		2C15BC3B24978EEB0065843C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2CFB863B24947A97003B3EE7 /* O'Balloon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "O'Balloon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFB863E24947A97003B3EE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CFB864024947A97003B3EE7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -47,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C15BC3C24978EEB0065843C /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,11 +76,32 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		2C15BC1D2497603B0065843C /* O'balloon_Sound */ = {
+			isa = PBXGroup;
+			children = (
+				2C15BC222497603B0065843C /* O'balloon_BGM.aac */,
+				2C15BC2C24976E880065843C /* O'balloon_blow.m4a */,
+				2C15BC3024976F7C0065843C /* O'balloon_pop.m4a */,
+				2C15BC3224976FCC0065843C /* O'balloon_success.m4a */,
+				2C15BC38249781550065843C /* O'balloon_Gameover.m4a */,
+			);
+			path = "O'balloon_Sound";
+			sourceTree = "<group>";
+		};
+		2C15BC3A24978EEB0065843C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C15BC3B24978EEB0065843C /* GameKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2CFB863224947A97003B3EE7 = {
 			isa = PBXGroup;
 			children = (
 				2CFB863D24947A97003B3EE7 /* O'Balloon */,
 				2CFB863C24947A97003B3EE7 /* Products */,
+				2C15BC3A24978EEB0065843C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +119,7 @@
 				2CFB865A24949FDE003B3EE7 /* Scene */,
 				2CFB865B2494A04A003B3EE7 /* Scene Controller */,
 				2C15BC1C24966A9B0065843C /* Font */,
+				2C15BC1D2497603B0065843C /* O'balloon_Sound */,
 				2CFB863E24947A97003B3EE7 /* AppDelegate.swift */,
 				2CFB864224947A97003B3EE7 /* Actions.sks */,
 				2CFB864624947A97003B3EE7 /* GameViewController.swift */,
@@ -91,6 +128,7 @@
 				2CFB864B24947A9D003B3EE7 /* Assets.xcassets */,
 				2CFB864D24947A9D003B3EE7 /* LaunchScreen.storyboard */,
 				2CFB865024947A9D003B3EE7 /* Info.plist */,
+				2C15BC34249771390065843C /* AudioPlayerImplementation.swift */,
 			);
 			path = "O'Balloon";
 			sourceTree = "<group>";
@@ -175,11 +213,16 @@
 			files = (
 				2CFB865924948923003B3EE7 /* GameOverScene.sks in Resources */,
 				2CFB864A24947A97003B3EE7 /* Main.storyboard in Resources */,
+				2C15BC272497603B0065843C /* O'balloon_BGM.aac in Resources */,
 				2C15BC1B24966A7D0065843C /* PhosphateCustom.ttc in Resources */,
 				2CFB864124947A97003B3EE7 /* GameScene.sks in Resources */,
 				2CFB864C24947A9D003B3EE7 /* Assets.xcassets in Resources */,
+				2C15BC39249781550065843C /* O'balloon_Gameover.m4a in Resources */,
 				2CFB864F24947A9D003B3EE7 /* LaunchScreen.storyboard in Resources */,
 				2CFB865724947F12003B3EE7 /* MainMenuScene.sks in Resources */,
+				2C15BC2D24976E880065843C /* O'balloon_blow.m4a in Resources */,
+				2C15BC3324976FCC0065843C /* O'balloon_success.m4a in Resources */,
+				2C15BC3124976F7C0065843C /* O'balloon_pop.m4a in Resources */,
 				2CFB864324947A97003B3EE7 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +237,7 @@
 				2CFB865F2494A0A4003B3EE7 /* GameOverScene.swift in Sources */,
 				2CFB864524947A97003B3EE7 /* GameScene.swift in Sources */,
 				2CFB864724947A97003B3EE7 /* GameViewController.swift in Sources */,
+				2C15BC35249771390065843C /* AudioPlayerImplementation.swift in Sources */,
 				2C15BC172495EA8E0065843C /* O'BalloonProtocol.swift in Sources */,
 				2CFB865D2494A067003B3EE7 /* MainMenuScene.swift in Sources */,
 				2CFB863F24947A97003B3EE7 /* AppDelegate.swift in Sources */,

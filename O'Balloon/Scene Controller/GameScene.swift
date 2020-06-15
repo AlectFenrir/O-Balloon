@@ -55,6 +55,9 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
     var score: CGFloat = 0
     var balloonCounter: Int = 0
     
+    var now: Int = 0
+    var then: Int = 0
+    
     var isBalloonALive = true
     
     var recorder: AVAudioRecorder!
@@ -90,6 +93,13 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         popScoreLabel.isHidden = true
         
         animateNodes([blowHereLabel, downArrow])
+        
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_BGM.aac")
+        soundNode.autoplayLooped = true
+        addChild(soundNode)
+        
+        let volumeAction = SKAction.changeVolume(to: 1, duration: 0)
+        soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -164,12 +174,37 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         })
     }
     
+    func setupBallonAudio() {
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_blow.m4a")
+        soundNode.autoplayLooped = true
+        addChild(soundNode)
+        
+        let volumeAction = SKAction.changeVolume(to: 2, duration: 0)
+        
+        now = Int(score)
+        if now > then {
+            soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
+        }
+        else if now < then {
+            soundNode.run(SKAction.group([volumeAction, SKAction.stop()]))
+        }
+        then = now
+    }
+    
     func setupPopAction() {
         let balloonTexture = SKTexture.init(imageNamed: "Group 4")
         
         let scoreFormat = String(format: "%.0f", score)
         popScoreLabel.text = "You Got \(scoreFormat)"
         popScoreLabel.isHidden = false
+        
+        //balloon.run(SKAction.playSoundFileNamed("O'balloon_success.m4a", waitForCompletion: false))
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_success.m4a")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+        
+        let volumeAction = SKAction.changeVolume(to: 1, duration: 0)
+        soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
         
         impactFeedbackgenerator.impactOccurred(intensity: score / 100)
         
@@ -236,6 +271,14 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
     
     func setupDeadAction() {
         isBalloonALive = false
+        
+        //balloon.run(SKAction.playSoundFileNamed("O'balloon_pop.m4a", waitForCompletion: false))
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_pop.m4a")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+        
+        let volumeAction = SKAction.changeVolume(to: 1, duration: 0)
+        soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
         
         if supportsHaptics {
             // Stop playing the haptic pattern.
@@ -324,6 +367,7 @@ class GameScene: SKScene, SFSpeechRecognizerDelegate, HapticFeedback {
         do {
             try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
             try audioSession.setActive(true)
+            try audioSession.overrideOutputAudioPort(.speaker)
             
             // Instantiate an AVAudioRecorder
             try recorder = AVAudioRecorder(url:url, settings: recordSettings)

@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import GameKit
 
 class GameOverScene: SKScene {
     
@@ -18,7 +19,11 @@ class GameOverScene: SKScene {
     var finalScore: Int = 0
     var balloonCounter: Int = 0
     
+    let LEADERBOARD_ID = "com.rayhanfaluda.O_Balloon"
+    
     override func didMove(to view: SKView) {
+        setupGameOverAudio()
+        
         finalScoreLabel = (childNode(withName: "//FinalScoreLabel") as! SKLabelNode)
         balloonCounterLabel = (childNode(withName: "//BalloonCounterLabel") as! SKLabelNode)
         
@@ -29,6 +34,17 @@ class GameOverScene: SKScene {
         let dinoyScaleFormat = String(format: "%.2f", dino.yScale)
         print("xScale: \(dinoxScaleFormat), yScale: \(dinoyScaleFormat)")
         print("Score: \(scoreFormat)") */
+        
+        // Submit score to GC leaderboard
+        let bestScoreInt = GKScore(leaderboardIdentifier: LEADERBOARD_ID)
+        bestScoreInt.value = Int64(finalScore)
+        GKScore.report([bestScoreInt]) { (error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Best Score submitted to your Leaderboard!")
+            }
+        }
         
         finalScoreLabel.text = "\(finalScore)"
         balloonCounterLabel.text = "\(balloonCounter)"
@@ -46,5 +62,14 @@ class GameOverScene: SKScene {
             mainMenuScene?.scaleMode = scaleMode
             view?.presentScene(mainMenuScene)
         }
+    }
+    
+    func setupGameOverAudio() {
+        let soundNode = SKAudioNode(fileNamed: "O'balloon_Gameover.m4a")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+
+        let volumeAction = SKAction.changeVolume(to: 1, duration: 0)
+        soundNode.run(SKAction.group([volumeAction, SKAction.play()]))
     }
 }

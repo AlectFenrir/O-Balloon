@@ -53,6 +53,7 @@ class GameScene: SKScene, HapticFeedback {
     
     var score: CGFloat = 0
     var balloonCounter: Int = 0
+    var finalScore: Int = 0
     
     var now: Int = 0
     var then: Int = 0
@@ -212,6 +213,8 @@ class GameScene: SKScene, HapticFeedback {
         balloonCounter += 1
         balloonCounterLabel.text = "\(balloonCounter)"
         
+        finalScore = Int(score) * balloonCounter
+        
         balloon.run(SKAction.setTexture(pop.texture!, resize: true))
         
         run(SKAction.sequence([
@@ -255,7 +258,7 @@ class GameScene: SKScene, HapticFeedback {
         // Code for Transition
         let gameOverScene = GameOverScene(fileNamed: "GameOverScene")
         gameOverScene?.scaleMode = scaleMode
-        gameOverScene?.score = score
+        gameOverScene?.finalScore = finalScore
         gameOverScene?.balloonCounter = balloonCounter
         
         let transition = SKTransition.fade(with: .red, duration: 1)
@@ -297,7 +300,7 @@ class GameScene: SKScene, HapticFeedback {
         // Code for Transition
         let gameOverScene = GameOverScene(fileNamed: "GameOverScene")
         gameOverScene?.scaleMode = scaleMode
-        gameOverScene?.score = score
+        gameOverScene?.finalScore = finalScore
         gameOverScene?.balloonCounter = balloonCounter
         
         let transition = SKTransition.fade(with: .red, duration: 1)

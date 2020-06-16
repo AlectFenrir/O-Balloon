@@ -27,8 +27,6 @@ class GameOverScene: SKScene {
         finalScoreLabel = (childNode(withName: "//FinalScoreLabel") as! SKLabelNode)
         balloonCounterLabel = (childNode(withName: "//BalloonCounterLabel") as! SKLabelNode)
         
-        finalScore = Int(score) * balloonCounter
-        print(finalScore)
         
         /* let scoreFormat = String(format: "%.0f", finalScore)
         let dinoyScaleFormat = String(format: "%.2f", dino.yScale)

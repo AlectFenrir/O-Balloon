@@ -1,2 +1,2 @@
 # O-Balloon
-A Nano Challenge 3 App for Apple Developer Academy Indonesia
+A 2D, SpriteKit based balloon-blowing game with Game Center support.
